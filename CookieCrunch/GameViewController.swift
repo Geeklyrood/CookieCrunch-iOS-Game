@@ -14,6 +14,13 @@ class GameViewController: UIViewController {
   var scene: GameScene!
   var level: Level!
   
+  var movesLeft = 0
+  var score = 0
+  
+  @IBOutlet weak var targetLabel: UILabel!
+  @IBOutlet weak var movesLabel: UILabel!
+  @IBOutlet weak var scoresLabel: UILabel!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -38,6 +45,9 @@ class GameViewController: UIViewController {
   }
   
   func beginGame() {
+    movesLeft = level.maximumMoves
+    score = 0
+    updateLabels()
     shuffle()
   }
   
@@ -87,6 +97,12 @@ class GameViewController: UIViewController {
     }
     
     scene.animateMatchedCookies(for: chains) {
+      
+      for chain in chains {
+        self.score += chain.score
+      }
+      self.updateLabels()
+      
       let columns = self.level.fillCookies()
       self.scene.animateFallingCookies(columns: columns) {
         let columns = self.level.topUpCookies()
@@ -102,6 +118,12 @@ class GameViewController: UIViewController {
   func beginNextTurn() {
     level.detectPossibleSwaps()
     view.isUserInteractionEnabled = true
+  }
+  
+  func updateLabels() {
+    targetLabel.text = String(format: "%ld", level.targetScore)
+    movesLabel.text = String(format: "%ld", movesLeft)
+    scoresLabel.text = String(format: "%ld", score)
   }
   
   
