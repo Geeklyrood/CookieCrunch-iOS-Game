@@ -113,10 +113,18 @@ class Level {
   private func calculateScores(for chains: Set<Chain>) {
     // 3-Chain 60 points, 4-chain 120, 5-chain 180, so on
     for chain in chains {
-      chain.score = 60 * (chain.length - 2)
+      chain.score = 60 * (chain.length - 2) * comboMultiplier
+      comboMultiplier += 1
     }
 
   }
+  
+  private var comboMultiplier = 0
+  
+  func resetComboMultiplier() {
+    comboMultiplier = 1
+  }
+  
   
   // MARK: - Possible Swaps
   

@@ -60,6 +60,8 @@ class GameScene: SKScene {
     gameLayer.addChild(tilesLayer)
     gameLayer.addChild(cookiesLayer)
     
+    gameLayer.isHidden = true
+    
     swipeFromColumn = nil
     swipeFromRow = nil
   }
@@ -400,6 +402,26 @@ class GameScene: SKScene {
     
     run(SKAction.wait(forDuration: longestDuration), completion: completion)
     
+  }
+  
+  // MARK: - Animate Game Transitions
+  
+  func animateGameOver(_ completion: @escaping () -> ()) {
+    let action = SKAction.move(by: CGVector(dx:0, dy: -size.height), duration: 0.3)
+    action.timingMode = .easeIn
+    gameLayer.run(action, completion: completion)
+  }
+  
+  func animateBeginGame(_ completion: @escaping () -> ()) {
+    gameLayer.isHidden = false
+    gameLayer.position = CGPoint(x: 0, y: size.height)
+    let action = SKAction.move(by: CGVector(dx: 0, dy: -size.height), duration: 0.3)
+    action.timingMode = .easeOut
+    gameLayer.run(action, completion: completion)
+  }
+  
+  func removeAllCookieSprites() {
+    cookiesLayer.removeAllChildren()
   }
   
 }
