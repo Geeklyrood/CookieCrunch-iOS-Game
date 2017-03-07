@@ -364,6 +364,46 @@ class Level {
     return columns
   }
   
+  func topUpCookies() -> [[Cookie]] {
+    var columns = [[Cookie]]()
+    
+    var cookieType: CookieType = .unknown
+    
+    for column in 0..<NumColumns {
+      
+      var array = [Cookie]()
+      
+      var row = NumRows - 1
+      
+      while row >= 0 && cookies[column, row] == nil {
+        
+        if tiles[column, row] != nil {
+          var newCookieType: CookieType
+          repeat {
+            
+            newCookieType = CookieType.random()
+            
+          } while newCookieType == cookieType
+          
+          cookieType = newCookieType
+          
+          let cookie = Cookie(column: column, row: row, cookieType: cookieType)
+          cookies[column, row] = cookie
+          array.append(cookie)
+        }
+        
+        row -= 1
+        
+      }
+      
+      if !array.isEmpty {
+        columns.append(array)
+      }
+    }
+    
+    return columns
+  }
+  
 }
 
 
