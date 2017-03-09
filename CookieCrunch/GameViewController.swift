@@ -2,12 +2,13 @@
 //  GameViewController.swift
 //  CookieCrunch
 //
-//  Created by Andrews, George on 2/21/17.
-//  Copyright © 2017 Andrews, George. All rights reserved.
+//  Created by Rood, Keenan on 2/21/17.
+//  Copyright © 2017 Rood, Keenan. All rights reserved.
 //
 
 import UIKit
 import SpriteKit
+import AVFoundation
 
 class GameViewController: UIViewController {
   
@@ -16,6 +17,8 @@ class GameViewController: UIViewController {
   
   var movesLeft = 0
   var score = 0
+  
+  var currentLevelNum = 1
   
   @IBOutlet weak var targetLabel: UILabel!
   @IBOutlet weak var movesLabel: UILabel!
@@ -27,29 +30,54 @@ class GameViewController: UIViewController {
   
   var tapGestureRecognizer: UITapGestureRecognizer!
   
+  lazy var backgroundMusic: AVAudioPlayer? = {
+    guard let url = Bundle.main.url(forResource: "Mining by Moonlight", withExtension: "mp3")
+      else {
+        return nil
+    }
+    do {
+      let player = try AVAudioPlayer(contentsOf: url)
+      player.numberOfLoops = -1
+      return player
+    } catch {
+      return nil
+    }
+  }()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    // Hide gameOverPanel
-    gameOverPanel.isHidden = true
+    // Setup view for level 1
+    setupLevel(levelNum: currentLevelNum)
     
+    // Start the music
+    backgroundMusic?.play()
+  }
+  
+  func setupLevel(levelNum: Int) {
     
     // Configure the view.
     let skView = view as! SKView
     skView.isMultipleTouchEnabled = false
-  
+    
     // Create and configure the scene.
     scene = GameScene(size: skView.bounds.size)
     scene.scaleMode = .aspectFill
     
+    
+    
+    // Set up the level
+    level = Level(fileName: "Level_\(levelNum)")
+    scene.level = level
+    
     scene.swipeHandler = handleSwipe
+    scene.addTiles()
+    
+    gameOverPanel.isHidden = true
+    shuffleButton.isHidden = true
     
     // Present the scene.
     skView.presentScene(scene)
-    
-    level = Level(fileName: "Level_1")
-    scene.level = level
-    scene.addTiles()
     
     beginGame()
   }
@@ -144,6 +172,7 @@ class GameViewController: UIViewController {
     if score >= level.targetScore {
       
       gameOverPanel.image = UIImage(named: "LevelComplete")
+      currentLevelNum = currentLevelNum < NumLevels ? currentLevelNum + 1 : 1
       showGameOver()
       
     } else if movesLeft == 0 {
@@ -180,8 +209,8 @@ class GameViewController: UIViewController {
     
     gameOverPanel.isHidden = true
     scene.isUserInteractionEnabled = true
-    
-    beginGame()
+
+    setupLevel(levelNum: currentLevelNum)
   }
   
   @IBAction func shuffleButtonPressed(_ sender: Any) {

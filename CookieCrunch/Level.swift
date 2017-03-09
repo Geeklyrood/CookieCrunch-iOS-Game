@@ -2,14 +2,15 @@
 //  Level.swift
 //  CookieCrunch
 //
-//  Created by Andrews, George on 2/23/17.
-//  Copyright © 2017 Andrews, George. All rights reserved.
+//  Created by Rood, Keenan on 2/23/17.
+//  Copyright © 2017 Rood, Keenan. All rights reserved.
 //
 
 import Foundation
 
 let NumColumns = 9
 let NumRows = 9
+let NumLevels = 4
 
 class Level {
   

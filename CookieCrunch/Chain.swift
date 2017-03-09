@@ -3,7 +3,7 @@
 //  CookieCrunch
 //
 //  Created by Keenan Rood on 3/2/17.
-//  Copyright © 2017 Andrews, George. All rights reserved.
+//  Copyright © 2017 Rood, Keenan. All rights reserved.
 //
 
 import Foundation

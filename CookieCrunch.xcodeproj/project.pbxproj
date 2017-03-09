@@ -14,6 +14,7 @@
 		064EDD931E68AC0900A26E07 /* Mining by Moonlight.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 064EDD8D1E68AC0900A26E07 /* Mining by Moonlight.mp3 */; };
 		064EDD941E68AC0900A26E07 /* Scrape.wav in Resources */ = {isa = PBXBuildFile; fileRef = 064EDD8E1E68AC0900A26E07 /* Scrape.wav */; };
 		064EDD961E68B2B100A26E07 /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064EDD951E68B2B100A26E07 /* Chain.swift */; };
+		06D82C851E71DEDD0028A1B7 /* Grid.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 06D82C841E71DEDD0028A1B7 /* Grid.atlas */; };
 		A3886C801E6603CA0068D8FF /* Swap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3886C7F1E6603CA0068D8FF /* Swap.swift */; };
 		A3BA9E0D1E5CC260000596C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BA9E0C1E5CC260000596C3 /* AppDelegate.swift */; };
 		A3BA9E131E5CC260000596C3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BA9E121E5CC260000596C3 /* GameScene.swift */; };
@@ -42,6 +43,7 @@
 		064EDD8D1E68AC0900A26E07 /* Mining by Moonlight.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Mining by Moonlight.mp3"; sourceTree = "<group>"; };
 		064EDD8E1E68AC0900A26E07 /* Scrape.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Scrape.wav; sourceTree = "<group>"; };
 		064EDD951E68B2B100A26E07 /* Chain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chain.swift; sourceTree = "<group>"; };
+		06D82C841E71DEDD0028A1B7 /* Grid.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = Grid.atlas; path = Sounds/Grid.atlas; sourceTree = "<group>"; };
 		A3886C7F1E6603CA0068D8FF /* Swap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swap.swift; sourceTree = "<group>"; };
 		A3BA9E091E5CC260000596C3 /* CookieCrunch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookieCrunch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3BA9E0C1E5CC260000596C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				A3BA9E241E5CD818000596C3 /* Sprites.atlas */,
 				A3E7663B1E5F7F3600E68652 /* Levels */,
 				064EDD881E68AC0900A26E07 /* Sounds */,
+				06D82C841E71DEDD0028A1B7 /* Grid.atlas */,
 				A3BA9E0C1E5CC260000596C3 /* AppDelegate.swift */,
 				A3BA9E121E5CC260000596C3 /* GameScene.swift */,
 				A3BA9E141E5CC260000596C3 /* GameViewController.swift */,
@@ -203,6 +206,7 @@
 				A3BA9E181E5CC260000596C3 /* Main.storyboard in Resources */,
 				064EDD901E68AC0900A26E07 /* Drip.wav in Resources */,
 				A3E766451E5F7F3600E68652 /* Level_4.json in Resources */,
+				06D82C851E71DEDD0028A1B7 /* Grid.atlas in Resources */,
 				064EDD911E68AC0900A26E07 /* Error.wav in Resources */,
 				A3E766431E5F7F3600E68652 /* Level_2.json in Resources */,
 				064EDD941E68AC0900A26E07 /* Scrape.wav in Resources */,

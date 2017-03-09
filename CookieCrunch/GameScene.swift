@@ -2,8 +2,8 @@
 //  GameScene.swift
 //  CookieCrunch
 //
-//  Created by Andrews, George on 2/21/17.
-//  Copyright © 2017 Andrews, George. All rights reserved.
+//  Created by Rood, Keenan on 2/21/17.
+//  Copyright © 2017 Rood, Keenan. All rights reserved.
 //
 
 import SpriteKit
@@ -14,6 +14,9 @@ class GameScene: SKScene {
   
   let tileWidth: CGFloat = 32.0
   let tileHeight: CGFloat = 36.0
+  
+  let cropLayer = SKCropNode()
+  let maskLayer = SKNode()
   
   let gameLayer = SKNode()
   let cookiesLayer = SKNode()
@@ -58,7 +61,11 @@ class GameScene: SKScene {
     tilesLayer.position = layerPosition
     
     gameLayer.addChild(tilesLayer)
-    gameLayer.addChild(cookiesLayer)
+    gameLayer.addChild(cropLayer)
+    cropLayer.addChild(cookiesLayer)
+    
+    maskLayer.position = layerPosition
+    cropLayer.maskNode = maskLayer
     
     gameLayer.isHidden = true
     
@@ -69,12 +76,24 @@ class GameScene: SKScene {
   func addSprites(for cookies: Set<Cookie>) {
     for cookie in cookies {
       
+      
       // create that cookie's sprite
       let sprite = SKSpriteNode(imageNamed: cookie.cookieType.spriteName)
       sprite.size = CGSize(width: tileWidth, height: tileHeight)
       sprite.position = pointFor(column: cookie.column, row: cookie.row)
       cookiesLayer.addChild(sprite)
       cookie.sprite = sprite
+      
+      sprite.alpha = 0
+      sprite.xScale = 0.5
+      sprite.yScale = 0.5
+      
+      sprite.run(SKAction.sequence([SKAction.wait(forDuration: 0.25, withRange: 0.5),
+                                    SKAction.group([
+                                      SKAction.fadeIn(withDuration: 0.25),
+                                      SKAction.scale(to: 1.0, duration: 0.25)
+                                      ])
+        ]))
     }
   }
   
@@ -84,12 +103,48 @@ class GameScene: SKScene {
         if level.tileAt(column: column, row: row) != nil {
           
           // create sprite for the tile
-          let tileNode = SKSpriteNode(imageNamed: "Tile")
+          let tileNode = SKSpriteNode(imageNamed: "MaskTile")
           tileNode.size = CGSize(width: tileWidth, height: tileHeight)
           tileNode.position = pointFor(column: column, row: row)
-          tilesLayer.addChild(tileNode)
+          maskLayer.addChild(tileNode)
           
         }
+      }
+    }
+    for row in 0...NumRows {
+      for column in 0...NumColumns {
+        let topLeft = (column > 0)
+                  && (row < NumRows)
+                  && level.tileAt(column: column - 1, row: row) != nil
+        let bottomLeft = (column > 0)
+                  && (row > 0)
+                  && level.tileAt(column: column - 1, row: row - 1) != nil
+        let topRight = (column < NumColumns)
+                  && (row < NumRows)
+                  && level.tileAt(column: column, row: row) != nil
+        let bottomRight = (column < NumColumns)
+                  && (row > 0)
+                  && level.tileAt(column: column, row: row - 1) != nil
+        
+        // Tiles are named from 0 - 15 according to the bitmask
+        let value =
+          Int(topLeft.hashValue) |
+          Int(topRight.hashValue) << 1 |
+          Int(bottomLeft.hashValue) << 2 |
+          Int(bottomRight.hashValue) << 3
+        
+        // Values 0, 6 and 9 are not drawn
+        if value != 0 && value != 6 && value != 9 {
+          let name = String(format: "Tile_%ld", value)
+          let tileNode = SKSpriteNode(imageNamed: name)
+          tileNode.size = CGSize(width: tileWidth, height: tileHeight)
+          var point = pointFor(column: column, row: row)
+          point.x -= tileWidth / 2
+          point.y -= tileHeight / 2
+          tileNode.position = point
+          tilesLayer.addChild(tileNode)
+        }
+        
       }
     }
   }
