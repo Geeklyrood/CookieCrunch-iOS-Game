@@ -3,7 +3,7 @@
 //  CookieCrunch
 //
 //  Created by Keenan Rood on 3/2/17.
-//  Copyright © 2017 Andrews, George. All rights reserved.
+//  Copyright © 2017 Rood, Keenan. All rights reserved.
 //
 
 import Foundation
@@ -12,6 +12,10 @@ import Foundation
 class Chain: CustomStringConvertible, Hashable {
   
   var cookies = [Cookie]()
+  
+  var score = 0
+  
+  
   enum ChainType: CustomStringConvertible {
     case horizontal
     case vertical
